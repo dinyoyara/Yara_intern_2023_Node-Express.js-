@@ -2,15 +2,10 @@ const { DataTypes } = require('sequelize');
 
 const sequelize = require('../db');
 
-/**
- * @param {DataTypes} DataTypes;
- */
-
 const User = sequelize.define('user', {
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
     name: {

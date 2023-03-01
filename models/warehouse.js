@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 
 const sequelize = require('../db');
 
-const Contractor = sequelize.define('contractor', {
+const Warehouse = sequelize.define('warehouse', {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
@@ -12,10 +12,9 @@ const Contractor = sequelize.define('contractor', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    email: DataTypes.STRING,
-    vat: {
+    address: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
         unique: true
     },
     deleted: {
@@ -24,4 +23,4 @@ const Contractor = sequelize.define('contractor', {
     }
 });
 
-module.exports = Contractor;
+module.exports = Warehouse;
