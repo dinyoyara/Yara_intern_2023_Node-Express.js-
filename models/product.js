@@ -1,26 +1,33 @@
-const Sequelize = require('sequelize');
+const { DataTypes } = require('sequelize');
+const Contractor = require('./contractor.js');
 
 const sequelize = require('../db');
 
 const Product = sequelize.define('product', {
     id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    title: Sequelize.STRING,
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     price: {
-        type: Sequelize.DOUBLE,
+        type: DataTypes.DOUBLE,
         allowNull: false
     },
-    imageUrl: {
-        type: Sequelize.STRING,
-        allowNull: false
+    contractorId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+            model: Contractor,
+            key: 'id'
+        }
     },
-    description: {
-        type: Sequelize.STRING,
-        allowNull: false
+    deleted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 });
 
