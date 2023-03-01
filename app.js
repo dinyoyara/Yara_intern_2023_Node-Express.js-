@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const router = require('./routes/main');
 const sequelize = require('./db');
 
-const { Contractor, Product, User, Warehouse, Invertory } = require('./models');
+const { Contractor, Product, User, Warehouse, Invertory, Transfer } = require('./models');
 
 const app = express();
 

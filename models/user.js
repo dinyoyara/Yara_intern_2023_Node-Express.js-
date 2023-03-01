@@ -17,6 +17,10 @@ const User = sequelize.define('user', {
         allowNull: false,
         unique: true
     },
+    role: {
+        type: DataTypes.ENUM('admin`', 'write', 'read'),
+        allowNull: false
+    },
     deleted: {
         type: DataTypes.BOOLEAN,
         defaultValue: false

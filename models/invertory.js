@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
 
 const sequelize = require('../db');
-const Product = require('./product.js');
-const Warehouse = require('./warehouse.js');
+const Product = require('./product');
+const Warehouse = require('./warehouse');
 
 const Invertory = sequelize.define(
     'invertory',
