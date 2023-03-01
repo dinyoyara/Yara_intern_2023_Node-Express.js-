@@ -19,7 +19,7 @@ const Invertory = sequelize.define(
                 key: 'id'
             }
         },
-        productsId: {
+        productId: {
             type: DataTypes.UUID,
             references: {
                 model: Product,
@@ -39,7 +39,7 @@ const Invertory = sequelize.define(
         indexes: [
             {
                 unique: true,
-                fields: ['warehouseId', 'productsId']
+                fields: ['warehouseId', 'productId']
             }
         ]
     }
