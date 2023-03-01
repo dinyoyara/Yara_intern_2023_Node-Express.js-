@@ -12,7 +12,8 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
-sequelize.sync();
-seeder().then();
+sequelize.sync().then(async () => {
+    await seeder();
+});
 
 app.listen(3000);
