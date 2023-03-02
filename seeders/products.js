@@ -2,6 +2,7 @@ const Contractor = require('../models/contractor');
 const Invertory = require('../models/invertory');
 const Product = require('../models/product');
 const Warehouse = require('../models/warehouse');
+const getRandom = require('../helpers');
 
 module.exports = async (count) => {
     if ((await Product.findAndCountAll()).count > 0) return;
@@ -29,10 +30,3 @@ module.exports = async (count) => {
         });
     }
 };
-
-// maximum - exclusive, minimum - inclusive
-function getRandom(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min);
-}
