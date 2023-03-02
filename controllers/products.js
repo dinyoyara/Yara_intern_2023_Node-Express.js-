@@ -23,8 +23,31 @@ const create = (req, res) => {
     }).then((pr) => res.status(201).end(pr.dataValues.id));
 };
 
+const update = (req, res) => {
+    const id = req.params.id;
+    Product.update(
+        {
+            name: req.body.name,
+            price: req.body.price,
+            contractorId: req.body.contractorId
+        },
+        {
+            where: { id: id }
+        }
+    ).then(() => res.status(204).end());
+};
+
+const deleteOne = (req, res) => {
+    const id = req.params.id;
+    Product.destroy({
+        where: { id: id }
+    }).then(() => res.status(200).end());
+};
+
 module.exports = {
     getAll,
     getOne,
-    create
+    create,
+    update,
+    deleteOne
 };
