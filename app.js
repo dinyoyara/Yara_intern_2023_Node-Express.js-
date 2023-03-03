@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 // const seed = require('./seeders');
 const setHeaders = require('./middlewares/setHeader');
 const productsRoutes = require('./routes/products');
+const userRoutes = require('./routes/users');
 
 const app = express();
 
@@ -13,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(setHeaders);
 app.use('/products', productsRoutes);
+app.use('/users', userRoutes);
 
 // sequelize.sync().then(async () => {
 //     await seed();
