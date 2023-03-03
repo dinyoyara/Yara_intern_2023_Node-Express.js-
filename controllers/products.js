@@ -1,29 +1,37 @@
+const { validationResult } = require('express-validator');
+
 const Product = require('../models/product');
 
 const getAll = (req, res) => {
     Product.findAll({
         where: { deleted: false },
         attributes: ['id', 'name', 'price', 'contractorId']
-    }).then((models) => res.end(JSON.stringify(models.map((p) => p.dataValues))));
+    }).then((models) => res.json(models.map((p) => p.dataValues)));
 };
 
 const getOne = (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.errors });
     const id = req.params.id;
     Product.findAll({
         where: { deleted: false, id: id },
         attributes: ['id', 'name', 'price', 'contractorId']
-    }).then((models) => res.end(JSON.stringify(models.map((p) => p.dataValues))));
+    }).then((models) => res.json(models.map((p) => p.dataValues)));
 };
 
 const create = (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.errors });
     Product.create({
         name: req.body.name,
         price: req.body.price,
         contractorId: req.body.contractorId
-    }).then((pr) => res.status(201).end(pr.dataValues.id));
+    }).then((model) => res.status(201).json(model.dataValues.id));
 };
 
 const update = (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.errors });
     const id = req.params.id;
     Product.update(
         {
@@ -38,16 +46,18 @@ const update = (req, res) => {
 };
 
 const deleteOne = (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.errors });
     const id = req.params.id;
     Product.destroy({
         where: { id: id }
-    }).then(() => res.status(200).end());
+    }).then(() => res.status(204).end());
 };
 
 module.exports = {
     getAll,
     getOne,
-    create,
     update,
-    deleteOne
+    deleteOne,
+    create
 };
