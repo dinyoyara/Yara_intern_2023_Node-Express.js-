@@ -3,7 +3,7 @@ const User = require('../models/user');
 module.exports = async (count) => {
     if ((await User.findAndCountAll()).count > 0) return;
     for (let i = 0; i < count; i++) {
-        let user = await User.build({
+        let user = User.build({
             name: 'user_00' + (i + 1),
             email: 'u1' + i + 'ser@abc.us'
         });
