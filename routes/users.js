@@ -1,13 +1,13 @@
 const express = require('express');
 
 const userController = require('../controllers/users');
-//const { validateProduct, validateProductId } = require('../middlewares/validators');
+const { validateUserId } = require('../middlewares/validators');
+const { forAdmin } = require('../middlewares/roles');
 
 const router = express.Router();
 
 router.get('/', userController.getAll);
-router.get('/:id', userController.getOne);
-//router.put('/:id', validateProductId, validateProduct, productController.update);
-//router.delete('/:id', validateProductId, productController.deleteOne);
+router.get('/:id', validateUserId, userController.getOne);
+router.delete('/:id', forAdmin, validateUserId, userController.deleteOne);
 
 module.exports = router;
