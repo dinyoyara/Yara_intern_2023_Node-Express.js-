@@ -1,5 +1,4 @@
 const { DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
 
 const sequelize = require('../db');
 
@@ -31,8 +30,5 @@ const User = sequelize.define('user', {
         defaultValue: false
     }
 });
-
-User.prototype.generateHash = async (password) => await bcrypt.hash(password, bcrypt.genSaltSync(8));
-User.prototype.validPassword = async (password) => await bcrypt.compare(password, this.password);
 
 module.exports = User;

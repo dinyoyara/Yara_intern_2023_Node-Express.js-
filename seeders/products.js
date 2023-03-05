@@ -2,7 +2,7 @@ const Contractor = require('../models/contractor');
 const Invertory = require('../models/invertory');
 const Product = require('../models/product');
 const Warehouse = require('../models/warehouse');
-const getRandom = require('../helpers');
+const getRandom = require('../helpers/random');
 
 module.exports = async (count) => {
     if ((await Product.findAndCountAll()).count > 0) return;
