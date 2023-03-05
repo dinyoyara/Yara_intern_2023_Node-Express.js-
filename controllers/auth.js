@@ -6,8 +6,8 @@ const { generateToken } = require('../jwt/token');
 const User = require('../models/user');
 
 const register = (req, res) => {
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) return res.status(400).json({ errors: errors.errors });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.errors });
     let user = User.build({
         name: req.body.name,
         email: req.body.email,
@@ -20,8 +20,8 @@ const register = (req, res) => {
 };
 
 const login = (req, res) => {
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) return res.status(400).json({ errors: errors.errors });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.errors });
     User.findOne({
         where: {
             email: req.body.email
