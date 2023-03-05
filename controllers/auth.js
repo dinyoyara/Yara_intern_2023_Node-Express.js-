@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 
 const { generateCryptedPassword, isValidPassword } = require('../helpers/bcrypt');
-const { generateToken } = require('../helpers/token');
+const { generateToken } = require('../jwt/token');
 
 const User = require('../models/user');
 
