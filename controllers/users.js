@@ -18,7 +18,17 @@ const getOne = (req, res) => {
     }).then((models) => res.json(models.map((p) => p.dataValues)));
 };
 
+const deleteOne = (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.errors });
+    const id = req.params.id;
+    User.destroy({
+        where: { id: id }
+    }).then(() => res.status(204).end());
+};
+
 module.exports = {
     getAll,
-    getOne
+    getOne,
+    deleteOne
 };
