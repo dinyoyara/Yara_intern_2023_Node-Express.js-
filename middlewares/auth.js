@@ -8,9 +8,9 @@ module.exports = (req, res, next) => {
 
     if (authHeader) {
         const token = authHeader.split(' ')[1];
-        //console.log(token + '-' + config.jwtSecret);
         jwt.verify(token, config.jwtSecret, (err, tokenData) => {
-            if (err && tokenData.exp < Date.now()) return res.sendStatus(403);
+            if (err) return res.status(403).end('unauth token');
+            if (tokenData.exp * 1000 <= Date.now()) return res.status(403).end('expired token');
             req.userRole = tokenData.role;
             next();
         });
