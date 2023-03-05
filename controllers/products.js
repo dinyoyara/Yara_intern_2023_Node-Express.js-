@@ -1,4 +1,6 @@
 const { validationResult } = require('express-validator');
+const Contractor = require('../models/contractor');
+const Invertory = require('../models/invertory');
 
 const Product = require('../models/product');
 
@@ -15,7 +17,15 @@ const getOne = (req, res) => {
     const id = req.params.id;
     Product.findAll({
         where: { deleted: false, id: id },
-        attributes: ['id', 'name', 'price', 'contractorId']
+        attributes: ['id', 'name', 'price'],
+        include: {
+            model: Contractor,
+            attributes: ['name', 'vat', 'email']
+        }
+        // include: {
+        //     model: Invertory,
+        //     attributes: ['quantity']
+        // }
     }).then((models) => res.json(models.map((p) => p.dataValues)));
 };
 
