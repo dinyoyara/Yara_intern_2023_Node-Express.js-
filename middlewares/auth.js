@@ -1,5 +1,4 @@
-// https://stackabuse.com/authentication-and-authorization-with-jwts-in-express-js/
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const config = require('../jwt/config.json');
 

@@ -1,8 +1,8 @@
 const express = require('express');
 
-// const sequelize = require('./db');
-// const seed = require('./seeders');
-const { Contractor, Product, Warehouse, Invertory, Transfer, User } = require('./models');
+const sequelize = require('./db');
+const seed = require('./seeders');
+require('./models');
 
 const setHeaders = require('./middlewares/setHeader');
 const checkAuhtorization = require('./middlewares/auth');

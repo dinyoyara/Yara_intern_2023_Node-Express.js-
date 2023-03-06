@@ -1,7 +1,6 @@
 const { body, param } = require('express-validator');
 
 const Contractor = require('../models/contractor');
-const Product = require('../models/product');
 const User = require('../models/user');
 
 const validateProduct = [
@@ -17,27 +16,27 @@ const validateProduct = [
         })
 ];
 
-const validateProductId = [
-    param('id')
-        .isUUID()
-        .withMessage('unvalid value')
-        .bail()
-        .custom(async (value) => {
-            const prod = await Product.findOne({ where: { id: value } });
-            if (!prod) throw new Error('unknown product');
-        })
-];
+// const validateProductId = [
+//     param('id')
+//         .isUUID()
+//         .withMessage('unvalid value')
+//         .bail()
+//         .custom(async (value) => {
+//             const prod = await Product.findOne({ where: { id: value } });
+//             if (!prod) throw new Error('unknown product');
+//         })
+// ];
 
-const validateUserId = [
-    param('id')
-        .isUUID()
-        .withMessage('unvalid value')
-        .bail()
-        .custom(async (value) => {
-            const prod = await User.findOne({ where: { id: value } });
-            if (!prod) throw new Error('unknown user');
-        })
-];
+// const validateUserId = [
+//     param('id')
+//         .isUUID()
+//         .withMessage('unvalid value')
+//         .bail()
+//         .custom(async (value) => {
+//             const prod = await User.findOne({ where: { id: value } });
+//             if (!prod) throw new Error('unknown user');
+//         })
+// ];
 
 const validateUserForRegister = [
     body('name').isLength({ min: 5 }).withMessage('minimum 5 characters required'),
@@ -54,20 +53,18 @@ const validateUserForRegister = [
 
 const validateUserForLogin = [
     body('password').isLength({ min: 5 }).withMessage('minimum 5 characters required'),
-    body('email')
-        .isEmail()
-        .withMessage('invalid email')
-        .bail()
-        .custom(async (value) => {
-            const user = await User.findOne({ where: { email: value } });
-            if (!user) throw new Error('unknown email');
-        })
+    body('email').isEmail().withMessage('invalid email')
+    // .bail()
+    // .custom(async (value) => {
+    //     const user = await User.findOne({ where: { email: value } });
+    //     if (!user) throw new Error('unknown email');
+    // })
 ];
 
 module.exports = {
     validateProduct,
-    validateProductId,
-    validateUserId,
+    // validateProductId,
+    // validateUserId,
     validateUserForRegister,
     validateUserForLogin
 };

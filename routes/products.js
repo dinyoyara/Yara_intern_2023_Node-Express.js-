@@ -8,8 +8,8 @@ const router = express.Router();
 
 router.get('/', productController.getAll);
 router.post('/', forWriters, validateProduct, productController.create);
-router.get('/:id', validateProductId, productController.getOne);
-router.put('/:id', forWriters, validateProductId, validateProduct, productController.update);
-router.delete('/:id', forAdmin, validateProductId, productController.deleteOne);
+router.get('/:id', productController.getOne);
+router.put('/:id', forWriters, validateProduct, productController.update);
+router.delete('/:id', forAdmin, productController.deleteOne);
 
 module.exports = router;

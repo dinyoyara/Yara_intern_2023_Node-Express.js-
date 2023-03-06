@@ -1,15 +1,15 @@
 //Aprove only Admin role
 const forAdmin = (req, res, next) => {
     const role = req.userRole;
-    if (role != 'admin') return res.status(403).end('unauth role');
-    next();
+    if (role == 'admin') next();
+    return res.status(403).end('unauth role');
 };
 
 //Aprove Admin and Write roles
 const forWriters = (req, res, next) => {
     const role = req.userRole;
-    if (role == 'read') return res.status(403).end('unauth role');
-    next();
+    if (role == 'write' || role == 'admin') next();
+    return res.status(403).end('unauth role');
 };
 
 module.exports = {

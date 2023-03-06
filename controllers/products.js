@@ -15,7 +15,7 @@ const getOne = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.errors });
     const id = req.params.id;
-    Product.findAll({
+    Product.findOne({
         where: { deleted: false, id: id },
         attributes: ['id', 'name', 'price'],
         include: {
@@ -36,7 +36,7 @@ const create = (req, res) => {
         name: req.body.name,
         price: req.body.price,
         contractorId: req.body.contractorId
-    }).then((model) => res.status(201).json(model.dataValues.id));
+    }).then((model) => res.status(201).json(model));
 };
 
 const update = (req, res) => {
@@ -52,16 +52,25 @@ const update = (req, res) => {
         {
             where: { id: id }
         }
-    ).then(() => res.status(204).end());
+    ).then((pr) => {
+        if (!user) return res.status(404).end();
+        res.status(204).json(pr);
+    });
 };
 
 const deleteOne = (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.errors });
     const id = req.params.id;
-    Product.destroy({
-        where: { id: id }
-    }).then(() => res.status(204).end());
+    Product.update(
+        {
+            deleted: true
+        },
+        {
+            where: { id: id }
+        }
+    ).then((pr) => {
+        if (!user) return res.status(404).end();
+        res.status(204).json(pr);
+    });
 };
 
 module.exports = {
