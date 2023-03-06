@@ -7,7 +7,7 @@ const { validateProduct, validateProductId } = require('../middlewares/validator
 const router = express.Router();
 
 router.get('/', productController.getAll);
-router.post('/', forAdmin, validateProduct, productController.create);
+router.post('/', forWriters, validateProduct, productController.create);
 router.get('/:id', validateProductId, productController.getOne);
 router.put('/:id', forWriters, validateProductId, validateProduct, productController.update);
 router.delete('/:id', forAdmin, validateProductId, productController.deleteOne);
