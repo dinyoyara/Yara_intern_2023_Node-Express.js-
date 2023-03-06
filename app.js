@@ -5,7 +5,7 @@ const express = require('express');
 const { Contractor, Product, Warehouse, Invertory, Transfer, User } = require('./models');
 
 const setHeaders = require('./middlewares/setHeader');
-const authRequest = require('./middlewares/auth');
+const checkAuhtorization = require('./middlewares/auth');
 
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
@@ -16,8 +16,8 @@ const app = express();
 app.use(express.json());
 app.use(setHeaders);
 app.use('/auth', authRoutes);
-app.use('/products', authRequest, productsRoutes);
-app.use('/users', authRequest, userRoutes);
+app.use('/products', checkAuhtorization, productsRoutes);
+app.use('/users', checkAuhtorization, userRoutes);
 
 // sequelize.sync().then(async () => {
 //     await seed();
